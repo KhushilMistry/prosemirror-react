@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Prosemirror with React",
+  "name": "Prosemirror with React",
   "icons": [
     {
       "src": "favicon.ico",

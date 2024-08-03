@@ -1,6 +1,6 @@
 // ref: https://prosemirror.net/examples/menu/
 import {EditorOptions} from "../../components/RichTextEditor/types";
-import {toggleMark, setBlockType, wrapIn} from "prosemirror-commands";
+import {toggleMark, setBlockType} from "prosemirror-commands";
 import {Command, EditorState, Plugin, Transaction} from "prosemirror-state";
 import {EditorView} from "prosemirror-view";
 import "./style.css";
