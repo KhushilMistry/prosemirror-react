@@ -1,6 +1,6 @@
 ## React Toolkit for ProseMirror
 
-[ProseMirror](https://prosemirror.net/) is a powerful library for building rich-text editors on the web. This toolkit allows the integration of React components within ProseMirror blocks.
+[ProseMirror](https://prosemirror.net/) is a powerful library for building rich-text editors on the web. This toolkit enables the integration of React components within ProseMirror blocks. Although I do not plan to publish this as a standalone library, you can benefit from other actively maintained open-source projects (mentioned below). This repository aims to help you better understand ProseMirror and its interaction with modern UI libraries.
 
 ### Background
 
@@ -21,3 +21,22 @@ We recently revisited our decision and explored other libraries. Our toolkit has
 ### Recommendations
 
 For those seeking React support with ProseMirror, we recommend using the aforementioned libraries, as they are actively maintained. If you need more customization and control over the blocks, you can take inspiration from our toolkit and adapt it to your use case.
+
+### Props and Example
+
+The following properties are available for configuring the editor:
+
+**value**: `string` (optional) - The initial HTML content of the editor
+**jsonValue**: `object` (optional) - The initial JSON content of the editor.
+**extensions**: `{ new (): BaseExtension }[]` (optional) - A list of extensions to enhance the editor's functionality.
+**autoFocus**: `boolean` (optional) - Whether the editor should focus automatically on mount.
+**readOnly**: `boolean` (optional) - If true, the editor will be read-only.
+**onFocus**: `(view: EditorView) => void (optional)` - Callback function triggered when the editor gains focus.
+**onBlur**: `(view: EditorView) => void (optional)` - Callback function triggered when the editor loses focus.
+**onChange**: `(state: EditorState, htmlValue: string) => void (optional)` - Callback function triggered when the editor's content changes. Provides the latest state and HTML representation of the editor.
+**onChangeJSON**: `(state: EditorState, jsonValue: any) => void (optional)` - Callback function triggered when the editor's content changes. Provides the latest state and JSON representation of the editor document.
+**onCreateEditorView**: `(view: EditorView) => void` (optional) - Callback function triggered when the editor view is created.
+**plugins**: `BaseExtension["plugins"][]` (optional) - An array of ProseMirror plugins to be used in the editor.
+**keymaps**: `{ [key: string]: Command }` (optional) - Keymap bindings for custom commands.
+
+Checkout [App.tsx](https://github.com/KhushilMistry/prosemirror-react/blob/main/src/App.tsx) for detailed usage. We have also added plugins for reference [here](https://github.com/KhushilMistry/prosemirror-react/tree/main/src/RichTextEditorPlugins)
