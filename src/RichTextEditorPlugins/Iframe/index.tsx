@@ -14,6 +14,7 @@ export default class Iframe extends BaseExtension {
       },
       group: "block",
       isAtom: true,
+      selectable: false,
       parseDOM: [
         {
           tag: "iframe",

@@ -1,46 +1,23 @@
-# Getting Started with Create React App
+## React Toolkit for ProseMirror
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[ProseMirror](https://prosemirror.net/) is a powerful library for building rich-text editors on the web. This toolkit allows the integration of React components within ProseMirror blocks.
 
-## Available Scripts
+### Background
 
-In the project directory, you can run:
+At [Lyearn](https://www.lyearn.com/), we aimed to develop a Notion-like editor for our LMS tool in early 2021. We evaluated several libraries, including [QuillJS](https://quilljs.com/), [EditorJS](https://editorjs.io/), [CKEditor](https://ckeditor.com/), and [TinyMCE](https://www.tiny.cloud/). Ultimately, we chose ProseMirror due to its open-source license, active development, community support, and high level of customization.
 
-### `yarn start`
+### Why ProseMirror?
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+ProseMirror, written in VanillaJS, is highly customizable. Each block type, referred to as Nodes and Marks in ProseMirror, allows you to define its DOM representation. Our primary goal was to integrate React components within these ProseMirror blocks. We leveraged this feature by building a wrapper that passes a simple div element to ProseMirror. Using React Portals, we then render a React component with the div as its root.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### The Toolkit
 
-### `yarn test`
+In early 2021, few libraries offered React integration with ProseMirror. We considered [Remirror](https://remirror.io/) and [Outline](https://www.getoutline.com/), but we needed more customization and found these libraries in their early development stages. Inspired by these libraries and [prosemirror-react-nodeviews](https://github.com/johnkueh/prosemirror-react-nodeviews), we developed our own toolkit.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Current Status
 
-### `yarn build`
+We recently revisited our decision and explored other libraries. Our toolkit has served its purpose well, requiring minimal changes since its initial development. However, if we were to start anew, we might choose [Tiptap](https://tiptap.dev/) instead of building a toolkit from scratch.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Recommendations
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+For those seeking React support with ProseMirror, we recommend using the aforementioned libraries, as they are actively maintained. If you need more customization and control over the blocks, you can take inspiration from our toolkit and adapt it to your use case.

@@ -195,11 +195,6 @@ class ReactNodeView implements NodeView {
     );
   }
 
-  /**
-   * Copies the attributes from a ProseMirror Node to a DOM node.
-   * @param node The Prosemirror Node from which to source the attributes
-   * @param element
-   */
   setDomAttrs(node: Node, element: HTMLElement) {
     Object.keys(node.attrs || {}).forEach((attr) => {
       element.setAttribute(attr, node.attrs[attr]);
@@ -210,7 +205,6 @@ class ReactNodeView implements NodeView {
     return this.stopDomEvents;
   }
 
-  // todo: need to re-render react component: store in instance
   update(node: Node) {
     if (node.type.name !== this.node.type.name) {
       return false;
