@@ -111,7 +111,7 @@ We have extended the NodeView class to implement the ReactNodeView class. In thi
 
 We also introduce the concept of Extensions, which are taken as arguments in our main Editor Component. For each Node and Mark, an Extension must be defined. In the Extension, you can define the ProseMirror schema, keys, and input rules for the specific Mark or Node along with the name. Additionally, ProseMirror plugins can be defined in the Extension class. NodeViews can also be added through plugins. When mounting the editor, it extracts all plugins from the defined extensions and loads them into the actual ProseMirror while passing the EditorOptions. The EditorOptions include `schema`, `createReactNodeView`, and `portalApi`. The `schema` is the ProseMirror schema, `createReactNodeView` is the wrapper function for creating ReactNodeViews, and `portalApi` is useful for rendering React components in the DOM tree, mainly for menus.
 
-Here are examples of how Extension and ReactNodeView can be defined: [Paragraph](https://github.com/KhushilMistry/prosemirror-react/tree/main/src/RichTextEditorPlugins/Paragraph), [Heading](https://github.com/KhushilMistry/prosemirror-react/tree/main/src/RichTextEditorPlugins/Heading), [Iframe](https://github.com/KhushilMistry/prosemirror-react/tree/main/src/RichTextEditorPlugins/Iframe), and [AddMenu](https://github.com/KhushilMistry/prosemirror-react/tree/main/src/RichTextEditorPlugins/AddMenu).
+Here is an example of how Extension and ReactNodeView can be defined:
 
 ```javascript
 import { Plugin } from "prosemirror-state";
@@ -175,7 +175,7 @@ In this example:
 - **BaseExtension**: An abstract class that allows defining the schema, keys, input rules, and plugins for nodes and marks.
 - **plugins**: A function that returns a ProseMirror plugin, using `createReactNodeView` to render the `IframeComponent` as a NodeView.
 
-We have implemented some basic extensions for reference:
+We have implemented some basic extensions for reference: [Paragraph](https://github.com/KhushilMistry/prosemirror-react/tree/main/src/RichTextEditorPlugins/Paragraph), [Heading](https://github.com/KhushilMistry/prosemirror-react/tree/main/src/RichTextEditorPlugins/Heading), [Iframe](https://github.com/KhushilMistry/prosemirror-react/tree/main/src/RichTextEditorPlugins/Iframe), and [AddMenu](https://github.com/KhushilMistry/prosemirror-react/tree/main/src/RichTextEditorPlugins/AddMenu).
 
 ## Props and Example
 
