@@ -105,7 +105,77 @@ const view = new EditorView(document.querySelector("#editor"), {
 });
 ```
 
-This example demonstrates how to set up a schema, plugins, and custom NodeViews for a ProseMirror editor. By understanding and utilizing these properties, you can create a highly customized and feature-rich text editor.
+## ReactNodeView and BaseExtension
+
+We have extended the NodeView class to implement the ReactNodeView class. In this class, an empty `div` element is created and set as the DOM element of the NodeView. We then use the Portal API to render a React component passed to the constructor of ReactNodeView. A context is created around this `div`, setting the NodeView-related props in that context, making them accessible anywhere within the React component. The Portal API is used instead of `render` from ReactDOM to maintain contexts like theming or authentication for the component. You can check the implementation details [here](https://github.com/KhushilMistry/prosemirror-react/blob/main/src/components/RichTextEditor/ReactNodeView/index.tsx).
+
+We also introduce the concept of Extensions, which are taken as arguments in our main Editor Component. For each Node and Mark, an Extension must be defined. In the Extension, you can define the ProseMirror schema, keys, and input rules for the specific Mark or Node along with the name. Additionally, ProseMirror plugins can be defined in the Extension class. NodeViews can also be added through plugins. When mounting the editor, it extracts all plugins from the defined extensions and loads them into the actual ProseMirror while passing the EditorOptions. The EditorOptions include `schema`, `createReactNodeView`, and `portalApi`. The `schema` is the ProseMirror schema, `createReactNodeView` is the wrapper function for creating ReactNodeViews, and `portalApi` is useful for rendering React components in the DOM tree, mainly for menus.
+
+Here are examples of how Extension and ReactNodeView can be defined: [Paragraph](https://github.com/KhushilMistry/prosemirror-react/tree/main/src/RichTextEditorPlugins/Paragraph), [Heading](https://github.com/KhushilMistry/prosemirror-react/tree/main/src/RichTextEditorPlugins/Heading), [Iframe](https://github.com/KhushilMistry/prosemirror-react/tree/main/src/RichTextEditorPlugins/Iframe), and [AddMenu](https://github.com/KhushilMistry/prosemirror-react/tree/main/src/RichTextEditorPlugins/AddMenu).
+
+```javascript
+import { Plugin } from "prosemirror-state";
+import IframeComponent from "./IframeComponent"; // React Component
+
+interface EditorOptions {
+  schema: Schema;
+  createReactNodeView: createReactNodeView; // Wrapper function for ReactNodeView
+  portalApi: IReactNodeViewPortalsContext; // Portal APIs to render components like Menus
+}
+
+abstract class BaseExtension {
+  get schema(): NodeSpec | MarkSpec | null {
+    return null;
+  }
+
+  abstract get name(): string;
+
+  get type(): string {
+    return extensionType.node; // or extensionType.mark
+  }
+
+  get keys(): typeof baseKeymap | null {
+    return null;
+  }
+
+  inputRules(_editorOptions: EditorOptions): InputRule[] {
+    return [];
+  }
+
+  plugins(_editorOptions: EditorOptions): Plugin[] {
+    return [];
+  }
+}
+
+function plugins({ createReactNodeView }: EditorOptions) {
+  return [
+    new Plugin({
+      props: {
+        nodeViews: {
+          iframe(node, view, getPos, decorations) {
+            return createReactNodeView({
+              node,
+              view,
+              getPos,
+              decorations,
+              component: IframeComponent,
+            });
+          },
+        },
+      },
+    }),
+  ];
+}
+```
+
+In this example:
+
+- **IframeComponent**: A React component used to render an iframe.
+- **createReactNodeView**: A function to create a NodeView that renders the specified React component.
+- **BaseExtension**: An abstract class that allows defining the schema, keys, input rules, and plugins for nodes and marks.
+- **plugins**: A function that returns a ProseMirror plugin, using `createReactNodeView` to render the `IframeComponent` as a NodeView.
+
+We have implemented some basic extensions for reference:
 
 ## Props and Example
 
@@ -127,3 +197,11 @@ The following properties are available for configuring the editor:
 | keymaps            | `{ [key: string]: Command }` (optional)                      | Keymap bindings for custom commands.                                                                                                     |
 
 Checkout [App.tsx](https://github.com/KhushilMistry/prosemirror-react/blob/main/src/App.tsx) for detailed usage. We have also added plugins for reference [here](https://github.com/KhushilMistry/prosemirror-react/tree/main/src/RichTextEditorPlugins)
+
+You can run the app using the following commands:
+
+```sh
+git clone https://github.com/KhushilMistry/prosemirror-react.git
+cd prosemirror-react
+yarn && yarn start
+```

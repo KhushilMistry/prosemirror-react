@@ -14,7 +14,7 @@ const onKeyDown = (event: React.KeyboardEvent) => {
   event.stopPropagation();
 };
 
-const FileNodeView: React.FC = () => {
+const IframeNodeView: React.FC = () => {
   const {node, updateAttrs} = useReactNodeView();
   const href = node?.attrs?.href;
   const [inputSrc, setInputSrc] = useState(href);
@@ -60,4 +60,4 @@ const FileNodeView: React.FC = () => {
   );
 };
 
-export default FileNodeView;
+export default IframeNodeView;
